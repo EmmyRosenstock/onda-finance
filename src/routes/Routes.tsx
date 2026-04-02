@@ -4,7 +4,7 @@ import Login from "../pages/login";
 import Dashboard from "../pages/dashboard";
 import Transfer from "../pages/transfer";
 import Deposit from "../pages/deposit";
-import { PrivateRoute } from "./PrivateRoutes";
+import  PrivateRoute from "./PrivateRoutes";
 
 export const router = createBrowserRouter([
   {
