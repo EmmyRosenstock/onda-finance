@@ -69,7 +69,7 @@ export default function Dashboard() {
                 size="lg"
                 onClick={() => navigate("/transfer")}
               >
-                 Transferir
+                 Pix
               </Button>
             </div>
           </CardContent>

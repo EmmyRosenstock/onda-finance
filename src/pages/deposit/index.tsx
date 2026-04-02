@@ -1,6 +1,5 @@
-import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import toast from "react-hot-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,29 +13,25 @@ const depositSchema = z.object({
   value: z.coerce.number().min(1, "Informe um valor maior que zero"),
 });
 
-type DepositFormData = z.infer<typeof depositSchema>;
+type DepositFormInput = z.input<typeof depositSchema>;
+type DepositFormOutput = z.output<typeof depositSchema>;
 
 export default function Deposit() {
   const navigate = useNavigate();
   const deposit = useBalanceStore((state) => state.deposit);
 
-  const defaultValues = useMemo<DepositFormData>(
-    () => ({
-      value: 0,
-    }),
-    []
-  );
-
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<DepositFormData>({
+  } = useForm<DepositFormInput, unknown, DepositFormOutput>({
     resolver: zodResolver(depositSchema),
-    defaultValues,
+    defaultValues: {
+      value: 0,
+    },
   });
 
-  const onSubmit = async (data: DepositFormData) => {
+  const onSubmit: SubmitHandler<DepositFormOutput> = async (data) => {
     const success = deposit(data.value);
 
     if (!success) {
@@ -64,10 +59,12 @@ export default function Deposit() {
                 step="0.01"
                 min="0"
                 placeholder="Valor do depósito"
-                {...register("value")}
+                {...register("value", { valueAsNumber: true })}
               />
               {errors.value && (
-                <p className="mt-1 text-sm text-red-400">{errors.value.message}</p>
+                <p className="mt-1 text-sm text-red-400">
+                  {errors.value.message}
+                </p>
               )}
             </div>
 
@@ -80,6 +77,7 @@ export default function Deposit() {
               >
                 Voltar
               </Button>
+
               <Button
                 type="submit"
                 variant="success"

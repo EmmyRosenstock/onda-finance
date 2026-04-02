@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { z } from "zod";
@@ -15,30 +14,26 @@ const transferSchema = z.object({
   value: z.coerce.number().min(1, "Informe um valor maior que zero"),
 });
 
-type TransferFormData = z.infer<typeof transferSchema>;
+type TransferFormInput = z.input<typeof transferSchema>;
+type TransferFormOutput = z.output<typeof transferSchema>;
 
 export default function Transfer() {
   const navigate = useNavigate();
   const transfer = useBalanceStore((state) => state.transfer);
 
-  const defaultValues = useMemo<TransferFormData>(
-    () => ({
-      to: "",
-      value: 0,
-    }),
-    []
-  );
-
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<TransferFormData>({
+  } = useForm<TransferFormInput, unknown, TransferFormOutput>({
     resolver: zodResolver(transferSchema),
-    defaultValues,
+    defaultValues: {
+      to: "",
+      value: 0,
+    },
   });
 
-  const onSubmit: SubmitHandler<TransferFormData> = async (data) => {
+  const onSubmit: SubmitHandler<TransferFormOutput> = async (data) => {
     const success = transfer(data.value, data.to.trim());
 
     if (!success) {
@@ -55,7 +50,7 @@ export default function Transfer() {
       <Card className="w-full max-w-md">
         <CardContent className="space-y-6">
           <div className="text-center">
-            <h1 className="text-3xl font-bold text-white">Transferir</h1>
+            <h1 className="text-3xl font-bold text-white">Pix</h1>
             <p className="text-gray-300 text-sm">
               Envie dinheiro com rapidez e segurança
             </p>
@@ -64,7 +59,7 @@ export default function Transfer() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
               <Input
-                placeholder="Destinatário"
+                placeholder="Chave pix"
                 autoComplete="off"
                 {...register("to")}
               />
@@ -80,8 +75,8 @@ export default function Transfer() {
                 type="number"
                 step="0.01"
                 min="0"
-                placeholder="Valor da transferência"
-                {...register("value")}
+                placeholder="Valor do pix"
+                {...register("value", { valueAsNumber: true })}
               />
               {errors.value && (
                 <p className="mt-1 text-sm text-red-400">

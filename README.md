@@ -1,73 +1,76 @@
-# React + TypeScript + Vite
+#  Onda Finance
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Uma experiência moderna de gestão financeira construída com foco em UX, arquitetura escalável e boas práticas de front-end.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Acesse o projeto
 
-## React Compiler
+🌐 **Aplicação online:**  
+👉 https://SEU-LINK-AQUI.vercel.app  
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+ **Repositório:**  
+ https://github.com/EmmyRosenstock/onda-finance 
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ✨ Visão geral
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+O **Onda Finance** é uma aplicação que simula um ambiente bancário digital, permitindo ao usuário:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Criar conta
+- Realizar login
+- Visualizar saldo
+- Realizar depósitos
+- Fazer transferências
+- Acompanhar transações
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Tudo isso com uma interface moderna inspirada em fintechs como Nubank e Stripe.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🧠 Objetivo do projeto
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Este projeto foi desenvolvido para demonstrar:
+
+- Capacidade de construção de interfaces modernas
+- Organização de código escalável
+- Uso de múltiplas bibliotecas em conjunto
+- Boas práticas de desenvolvimento front-end
+- Simulação de regras de negócio reais
+
+---
+
+## 🛠️ Stack utilizada
+
+| Tecnologia | Função |
+|------|--------|
+| React + TypeScript | Base da aplicação |
+| Vite | Build e ambiente rápido |
+| Tailwind CSS | Estilização moderna |
+| CVA | Componentes reutilizáveis |
+| React Router | Navegação |
+| React Query | Gerenciamento de dados assíncronos |
+| Zustand | Estado financeiro |
+| Redux Toolkit | Estado de autenticação |
+| React Hook Form | Formulários |
+| Zod | Validação |
+| Axios | Requisições HTTP |
+| Vitest | Testes |
+
+---
+
+## 🧩 Arquitetura
+
+O projeto segue uma separação clara de responsabilidades:
+
+```bash
+src/
+  api/            # Configuração de requisições
+  components/     # Componentes reutilizáveis
+  hooks/          # Hooks customizados
+  pages/          # Páginas da aplicação
+  redux/          # Estado global (auth)
+  store/          # Estado financeiro (Zustand)
+  lib/            # Utilidades (CVA, helpers)
+  tests/          # Testes
